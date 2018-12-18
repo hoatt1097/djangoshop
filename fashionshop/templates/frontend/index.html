@@ -1,0 +1,14 @@
+<h1>Hello, this is page index.html</h1>
+{% if latest_question_list %}
+    <ul>
+       {% for a in latest_question_list %}
+       <li>
+             <a href="/polls/{{question.id}}/">
+                {{a.email}} 
+             </a>
+       <li>
+       {% endfor %}
+    </ul>
+{% else %}
+   <p>No polls are available.</p>
+{% endif %}
