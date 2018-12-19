@@ -1,11 +1,17 @@
+
+{% load static %}
 <h1>Hello, this is page index.html</h1>
+
+
+<img src="{% static "images/product/thoi-trang-nu/xanh-1-0636086650350562651.jpg" %}" alt="My image"/>
+
 {% if latest_question_list %}
     <ul>
        {% for a in latest_question_list %}
        <li>
-             <a href="/polls/{{question.id}}/">
+            <a href="/polls/{{question.id}}/">
                 {{a.email}} 
-             </a>
+            </a>
        <li>
        {% endfor %}
     </ul>
