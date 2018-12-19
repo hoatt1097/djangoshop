@@ -11,7 +11,7 @@ def index(request):
     return response
 def viewAdmin(request):
     listAdmin = admin.Admin.objects.all()
-    template = loader.get_template('frontend/index.html')
+    template = loader.get_template('extra_template/cau-hoi-thuong-gap.html')
     context = {
         'latest_question_list': listAdmin,
     }
