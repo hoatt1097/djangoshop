@@ -1,7 +1,4 @@
-<?php 
-  include 'database.php';
-  $dt = new Database;
-?>
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,9 +23,7 @@
     </style>
   </head>
   <body>
-    <?php
-      include 'header.php';
-    ?>
+    {% include "frontend/header.html" %}
     <div class="clearfix">
       
     </div>
@@ -70,9 +65,7 @@
         Quần có nhiều loại từ các loại thường giá rẻ cho đến các loại cao cấp đắt tiền với rất nhiều màu sắc, chất liệu chủ yếu là cotton, ren, lụa... Nhiều phụ nữ thích mặc quần cotton cạp cao bởi nó tạo cảm giác kín đáo, thoải mái. Song hiện nay giới trẻ lại "chuộng" loại quần "dây" cạp nhất... thích hợp với trang phục jeans, váy ngắn...</p>
       </div>
     </section>
-    <?php 
-      include 'footer.php';
-    ?>
+    {% include "frontend/footer.html" %}
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

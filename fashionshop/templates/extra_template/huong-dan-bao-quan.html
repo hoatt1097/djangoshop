@@ -1,7 +1,4 @@
-<?php 
-  include 'database.php';
-  $dt = new Database;
-?>
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,9 +21,7 @@
     </style>
   </head>
   <body>
-    <?php
-      include 'header.php';
-    ?>
+    {% include "frontend/header.html" %}
     <div class="clearfix">
       
     </div>
@@ -60,9 +55,7 @@
         <p>Tốt hơn là giặt tay đồ shop của bạn, nhưng bạn có thể giặt máy cho nhanh, nhưng dù bằng cách nào thì bạn cũng phải chú ý đặc biệt đến chúng.</p>
     </div>
     </section>
-    <?php 
-      include 'footer.php';
-    ?>
+    {% include "frontend/footer.html" %}
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
