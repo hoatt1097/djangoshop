@@ -15,5 +15,6 @@ $(document).ready(function() {
     amount_cart = parseInt(amount_cart) + 1;
     $(".top_cart_qty").text(amount_cart);
   })
+  
 
 });

@@ -1,13 +1,9 @@
 {% load static %}
 {% load humanize %}
 
-{% if resultProduct %}
-       {% for a in resultProduct %}
-            <h1>{{a.name}}</h1>
-       {% endfor %}
-{% else %}
-   <p>No polls are available.</p>
-{% endif %}
+
+
+
 
 <?php 
   include 'database.php';
@@ -63,6 +59,7 @@
   </head>
   <body>
   {% include "frontend/header.html" %} 
+  
     <div class="container clearfix">
       <div class="row">
         <div class="col-md-5 col-xs-12">
@@ -77,20 +74,17 @@
                 <div class="owl-stage-outer">
                   <div class="owl-stage">
 
-                    <?php
-                      for($i=0;  $i < count($image_link); $i = $i + 1)
-                      { 
-                    ?>
+                    {% for link in subLink %}
                     <div class="owl-item active" style="width: 82.4px;">
                       <div class="slide">
                         <div class="img">
-                          <img class="ega-product-img" alt="" index="0" src="<?=$image_link[$i]?>">
+                            {% static "" as baseUrl %}
+                          <img class="ega-product-img" alt="" index="0" src="{{ baseUrl }}{{link}}">
                         </div>
                       </div>
                     </div>
-                    <?php
-                      }
-                    ?>
+                    {% endfor %}
+                    
                   </div>
                 </div>
                 <div class="owl-dots disabled"></div>
