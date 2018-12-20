@@ -13,10 +13,15 @@ def showProductDetail(request, product_id):
         link = a.image_link
         subLink = link.split(',')
 
+    for a in resultProduct:
+        productDetail = a
+        color = a.color.split(',')
+
     template = loader.get_template('frontend/product.html')
     context = {
-        'resultProduct': resultProduct,
+        'productDetail': productDetail,
         'numberCart' : numberCart,
         'subLink' : subLink,
+        'color' : color,
     }
     return HttpResponse(template.render(context, request))

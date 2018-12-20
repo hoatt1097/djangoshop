@@ -1,45 +1,7 @@
 {% load static %}
 {% load humanize %}
+{% static "" as baseUrl %}
 
-
-
-
-
-<?php 
-  include 'database.php';
-  $dt = new Database;
-  $dt2 = new Database;
-  $dt3 = new Database;
-  $dt4 = new Database;
-  $image_id = $_GET['id'];
-  $dt -> select("SELECT image_link FROM image WHERE id = $image_id ");
-  while( $r = $dt->fetch() )
-  {
-    $image_link = $r["image_link"];
-    $image_link = explode(",", $image_link);
-  }
-  $dt -> select("SELECT * FROM product WHERE id = $image_id ");
-  while( $r = $dt->fetch() )
-  {
-    $id = $r["id"];
-    $name = $r["name"];
-    $price_=$r["price"];
-    $symbol = 'đ';
-    $symbol_thousand = '.';
-    $decimal_place = 0;
-    $price = number_format($r["price"], $decimal_place, '', $symbol_thousand).$symbol;
-
-    if($r["price"] == "0")
-    {
-      $price = "Liên hệ mua hàng";
-    }
-    $brand = $r["brand"];
-
-    $color = $r["color"];
-    $color = explode(",", $color);
-    $status = $r["status"];
-  }
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -48,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
     
-    <title>Menu</title>
+    <title>Product detail</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
@@ -67,7 +29,7 @@
             <div class="slider-wrap">
               <div class="pd_slide nopadding">
                 <div class="slide">
-                  <img itemprop="photos" src="<?=$image_link[0]?>" alt="">
+                  <img itemprop="photos" src="{{ baseUrl }}{{subLink.0}}" alt="">
                 </div>
               </div> 
               <div class="pd_slide_thumb owl-carousel owl-theme ega-product-img-carousel owl-loaded owl-drag">
@@ -78,7 +40,6 @@
                     <div class="owl-item active" style="width: 82.4px;">
                       <div class="slide">
                         <div class="img">
-                            {% static "" as baseUrl %}
                           <img class="ega-product-img" alt="" index="0" src="{{ baseUrl }}{{link}}">
                         </div>
                       </div>
@@ -97,17 +58,17 @@
           <div class="product-desc">
             <div class="page_title">
               <h1 itemprop="name">
-                {{a.name}}
+                {{productDetail.name}}
               </h1>
-              <span class="id_product">Mã SP: <?=$id?></span> 
+              <span class="id_product" itemprop="{{productDetail.id}}">Mã SP: {{productDetail.id}}</span> 
               <span class="product_vendor">
                 Thương hiệu:
-                <a href="" title="{{a.brand}}">{{a.brand}}</a>
+                <a href="" title="{{productDetail.brand}}">{{productDetail.brand}}</a>
               </span>
             </div>
             <div class="pd_sale_wrapper clearfix">
               <div class="product-price">
-                <ins itemprop="<?=$price_?>"><?=$price?></ins> <!----> <!---->
+                <ins itemprop="{{productDetail.price}}">{{productDetail.price|intcomma}}đ</ins> <!----> <!---->
               </div> 
               <div class="clear"></div> 
               <div class="line"></div> 
@@ -115,27 +76,17 @@
                   <div class="col-xs-12 options_picker color" style="position: relative;">
                     <h6 class="options_header">Màu sắc</h6>
                     <ul>
-                      <?php
-                        for($i=0;  $i < count($color); $i = $i + 1)
-                        { 
-                          if($i == 0)
-                          {
-                      ?>
+                      {% for a in color %}
+                        {% if forloop.counter == 1%}  
                             <li class="selected">
-                              <span><?=$color[$i]?></span>
+                              <span>{{a}}</span>
                             </li>
-                      <?php
-                          }
-                          else
-                          {
-                      ?>
+                        {% else %}
                             <li class="">
-                              <span><?=$color[$i]?></span>
+                              <span>{{a}}</span>
                             </li>
-                      <?php
-                        }
-                      }
-                      ?>
+                        {% endif %}
+                      {% endfor %}
                     </ul>
                   </div>
                   <div class="col-xs-12 options_picker size" style="position: relative;">
@@ -165,26 +116,19 @@
                   <input type="button" value="+" class="plus">
                 </div> 
                 <div class="clear"></div> 
-                <?php
-                  if($status != 0)
-                  {
-                ?>
+
+                {% if productDetail.status == 1 %}
                     <button type="" data-role="addtocart" class="col-xs-12 button buynow">
                         MUA NGAY
                         <span style="font-size: 12px;">Giao tận nơi hoặc nhận ở cửa hàng</span>
                     </button>
-                <?php
-                  }
-                  else
-                  {
-                ?>
+                {%else%}
                     <button type="" class="col-xs-12 btn_noproduct button">
                         CHÁY HÀNG
                         <span style="font-size: 12px;">Liên hệ sau</span>
                     </button>
-                <?php    
-                  }
-                ?>
+                {% endif %}
+
             </div>
           </div>
         </div>
@@ -323,18 +267,18 @@
                   <textarea cols='60' rows='2' name='txtcomment' class='txtcomment' placeholder='Vui lòng nhập bình luận ở đây...' style='padding-left: 10px;'></textarea><br>
                   <button type='submit' name='cmt-submit'>Bình luận</button>
                   </form>
-                  <?php
+                  {% comment %} <?php
                   $dt->select("select * from comment where idproduct = $id");
                   while ($r=$dt->fetch()){
-                    $idcmt = $r['idcmt'];
+                      $idcmt = $r['idcmt'];
                       $iduser = $r['iduser'];
-                    $date = $r['datecmt'];
-                    $comment = $r['comment'];
-                            $dt2 -> select("select * from user where iduser = $iduser");
-                    if($r = $dt2->fetch()){
-                      $firstname = $r['firstname'];
-                      $lastname = $r['lastname'];
-                    }
+                      $date = $r['datecmt'];
+                      $comment = $r['comment'];
+                      $dt2 -> select("select * from user where iduser = $iduser");
+                      if($r = $dt2->fetch()){
+                        $firstname = $r['firstname'];
+                        $lastname = $r['lastname'];
+                      }
                     ?>
                   <div class='row'>
                     <div id="comment">
@@ -383,7 +327,7 @@
                   <?php
                   }
                   ?>
-                
+                 {% endcomment %}
 
               </div>
               

@@ -7,14 +7,14 @@ $(document).ready(function() {
  	addSelected(addSelectedSize);
 
  	$('.buynow').click(function (){
-		var id_product = $('.id_product').text();
+		var id_product = $('.id_product').attr("itemprop");
 		var color_choose= $('.color ul li[class=selected] span').text();
 		var size_choose = $('.size ul li[class=selected] span').text();
 		var amount =$(".qty").val();
 		var price =$(".product-price ins").attr("itemprop");
 	    $.ajax({
-	        url : "add-cart.php",
-	        type : 'post',
+	        url : "/fashionshop/addcart",
+	        type : 'get',
 	        dataType : 'text',
 	        data : {
 	            "id_product"  	: id_product,
@@ -23,10 +23,13 @@ $(document).ready(function() {
 	            "amount"		: amount,
 	            "price"		: price
 	        },
-	        success : function(result) {
-	        	alert(result);
-	  		}
-	    });
+	        success: function (data) {
+				if (data) {
+				  alert("Thêm vào giỏ hàng thành công!");
+				  window.location.replace("/fashionshop/cart");
+				}
+			}
+		});
 	});
 
 });

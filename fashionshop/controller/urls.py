@@ -1,9 +1,9 @@
 from django.conf.urls import url 
  
-from . import views, home, extra_template, product
+from . import views, home, extra_template, product, cart
  
 urlpatterns = [ 
-    url(r'^$', views.index, name='index'),
+    url(r'^$', home.showProduct , name='showProduct'),
     url(r'listadmin', views.viewAdmin, name='viewAdmin'),
 
     # This is urls show extra template of footer
@@ -14,7 +14,10 @@ urlpatterns = [
     url(r'payment-guide', extra_template.showPaymentGuide , name='showPaymentGuide'),
     url(r'delivery-guide', extra_template.showDeliveryGuide , name='showDeliveryGuide'),
 
-    url(r'homepage', home.showProduct , name='showProduct'),
+    # This is function add to cart 
+    url(r'addcart', cart.addCart, name='addCart'),
+    url(r'cart', cart.showCart, name='showCart'),
+
     url(r'^product/(?P<product_id>[0-9]+)/$', product.showProductDetail , name='showProductDetail'),
     
 ]
