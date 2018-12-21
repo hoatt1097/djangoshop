@@ -19,4 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^fashionshop/', include('fashionshop.controller.urls')),
+    url(r'^$', include('fashionshop.controller.urls')),
 ]

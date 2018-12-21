@@ -5,17 +5,17 @@ $(document).ready(function() {
 
   $(".product-title a").click(function(){
     var image_id =  $(this).attr("itemprop");
-    $(this).attr('href', 'product/' + image_id);
+    $(this).attr('href', '/fashionshop/product/' + image_id);
   })
   
   $(".btn-quicklook").click(function(){
     var image_id =  $(this).attr("itemprop");
-    $(this).attr('href', 'product/' + image_id);
+    $(this).attr('href', '/fashionshop/product/' + image_id);
   })
 
   $(".colection ul li a").click(function(){
     var id_menu =  $(this).attr("itemprop");
-    $(this).attr('href', 'product/' + id_menu + '&sortby=default');
+    $(this).attr('href', '/fashionshop/product/' + id_menu + '&sortby=default');
   })
 
 });
