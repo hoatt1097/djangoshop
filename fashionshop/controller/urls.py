@@ -1,6 +1,6 @@
 from django.conf.urls import url 
  
-from . import views, home, extra_template, product, cart, login, register
+from . import views, home, extra_template, product, cart, login, register, category
  
 urlpatterns = [ 
     url(r'^$', home.showProduct , name='showProduct'),
@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^product/(?P<product_id>[0-9]+)/$', product.showProductDetail , name='showProductDetail'),
     url(r'login', login.index, name='index'),
     url(r'register', register.index, name='index'),
+    url(r'category', category.index, name='index'),
     
 ]
