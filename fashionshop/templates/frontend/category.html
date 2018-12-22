@@ -1,4 +1,6 @@
 {% load static %}
+{% load humanize %}
+{% static "" as baseUrl %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,28 +33,8 @@
                 <p class="col-xs-8" id="amount_product"></p>
                 <div class="text-right col-xs-4">
                   <p>Sắp xếp theo: </p>
-                  <?php
-                      $sort = $_GET['sortby'];
-                      switch ($sort) {
-                        case 'price-asc':
-                          $option = "Giá tăng dần";
-                          break;
-                        case 'price-desc':
-                          $option = "Giá giảm dần";
-                          break;
-                        case 'name-asc':
-                          $option = "Từ A-Z";
-                          break;
-                        case 'name-desc':
-                          $option = "Từ Z-A";
-                          break;
-                        default:
-                          $option = "Mặc định";
-                          break;
-                      }
-                    ?>
-                  <select class="form-control sort" onchange="sortby(<?=$_GET['id']?>)">
-                    <option value="" selected disabled hidden><?=$option?></option>
+                  <select class="form-control sort" onchange="sortby({{id}})">
+                    <option value="" selected disabled hidden>{{option}}</option>
                     <option value="default-0">Mặc định</option>
                     <option value="price-asc">Giá tăng dần</option>
                     <option value="price-desc">Giá giảm dần</option>
@@ -61,124 +43,38 @@
                   </select>
                 </div>
               </div>
-
-              <?php
-                $menu_id = $_GET['id'];
-                $data = $_GET['sortby'];
-                $sortby = explode('-',$data);
-                if($sortby[0]=='default')
-                {
-                  switch ($menu_id)
-                  {
-
-                     case 1:
-                     $dt -> select("SELECT * FROM product WHERE category_id = 4 or category_id = 5 or category_id = 6");
-                     break;
-
-                     case 2:
-                    $dt -> select("SELECT * FROM product WHERE category_id = 7 or category_id = 8 or category_id = 9");
-                     break;
-
-                     case 3:
-                     $dt -> select("SELECT * FROM product WHERE category_id = 11 or category_id = 10");
-                     break;
-
-                     case 'Sản phẩm khuyến mãi':
-                     $dt -> select("SELECT * FROM product WHERE sale > 0");
-                     break;
-
-                     case 'all':
-                     $dt -> select("SELECT * FROM product");
-                     break;
-
-                    default:
-                     $dt -> select("SELECT * FROM product WHERE category_id = $menu_id");
-                     break;
-                  }
-                }
-                else
-                {
-                  switch ($menu_id)
-                  {
-
-                     case 1:
-                     $dt -> select("SELECT * FROM product WHERE category_id = 4 or category_id = 5 or category_id = 6 ORDER BY $sortby[0] $sortby[1]");
-                     break;
-
-                     case 2:
-                    $dt -> select("SELECT * FROM product WHERE category_id = 7 or category_id = 8 or category_id = 9 ORDER BY $sortby[0] $sortby[1]");
-                     break;
-
-                     case 3:
-                     $dt -> select("SELECT * FROM product WHERE category_id = 11 or category_id = 10 ORDER BY $sortby[0] $sortby[1]");
-                     break;
-
-                     case 'Sản phẩm khuyến mãi':
-                     $dt -> select("SELECT * FROM product WHERE sale > 0 ORDER BY $sortby[0] $sortby[1]");
-                     break;
-
-                     case 'all':
-                     $dt -> select("SELECT * FROM product ORDER BY $sortby[0] $sortby[1]");
-                     break;
-
-                    default:
-                     $dt -> select("SELECT * FROM product WHERE category_id = $menu_id ORDER BY $sortby[0] $sortby[1]");
-                     break;
-                  }
-                }
-                  while( $r = $dt->fetch() )
-                  {
-                    $name = $r["name"];
-
-                    $symbol = 'đ';
-                    $symbol_thousand = '.';
-                    $decimal_place = 0;
-                    $price = number_format($r["price"], $decimal_place, '', $symbol_thousand).$symbol;
-
-                    if( $r["price"] == "0" )
-                    {
-                      $price = "Liên hệ mua hàng";
-                    }
-
-                    $link = $r["image_link"];  
-                    $sale = $r["sale"];
-                    $image_id = $r["image_id"];
-                ?>
-
+              {% if listProduct %}
+                {% for a in listProduct %}
                 <div class="product_single col-xs-6 col-md-3">
                   <div class="product product_one clearfix ">
                     <div class="product-image">
-                      <img src="<?=$link?>" alt="">
+                      <img src="{{baseUrl}}{{a.image_link}}" alt="">
                       <div class="quick_action clearfix">
                         <a href="" title="Lựa chọn"  class="btn-shopping-cart"><i class="fa fa-shopping-cart"></i></a>
-                        <a href="" itemprop="<?=$image_id?>" title="Xem nhanh" class="btn-quicklook"><i class="fa fa-eye"></i></a>
+                        <a href="" itemprop="{{a.image_id}}" title="Xem nhanh" class="btn-quicklook"><i class="fa fa-eye"></i></a>
                       </div>
-                      <?php
-                        if($sale != 0)
-                        {
-                      ?>
-                          <div class="sale-flash">-<?=$sale?>%</div>
-                      <?php
-                        }
-                      ?>
+                      {% if a.sale != 0 %}
+                          <div class="sale-flash">-{{a.sale}}%</div>
+                      {% endif %}
                     </div>
                     <div class="product-desc">
                           <div class="product-title">
                             <h3>
-                              <a href="" itemprop="<?=$image_id?>" title="<?=$name?>">
-                              <p><?=$name?></p>
+                              <a href="" itemprop="{{a.image_id}}" title="{{a.name}}">
+                              <p>{{a.name}}</p>
                               </a>
                             </h3>
                           </div>
                           <div class="product-price">
-                            <ins><?=$price?></a></ins>
+                            <ins>{{a.price|intcomma}} đ</a></ins>
                           </div>
                     </div>
                   </div>
                 </div>
-                <?php              
-                  }
-              ?>
+                {% endfor %}
+              {% else %}
+                <p>No polls are available.</p>
+              {% endif %}
             </div>
           </div>
 
@@ -198,14 +94,16 @@
                     <ul id="filter_group_1" class="panel-collapse collapse in filter_list">
                       
                           {% for a in listBrand %}
+                            {%for b in a%}
                               <li class="product-filter-item product-filter-item--check-box ">
                                 <a href="javascript:void(0)">
                                   <label>
                                     <input type="checkbox">
-                                    {{a}}
+                                    {{b}}
                                   </label>
                                 </a>
                               </li> 
+                            {% endfor %}
                           {% endfor %}
                                     
                     </ul>

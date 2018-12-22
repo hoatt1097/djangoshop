@@ -18,7 +18,7 @@ $(document).ready(function() {
   function sortby(id_menu){
 	var id_menu = id_menu;
 	var sortby = $(".sort").val();  
-	window.location.replace("category.php?id="+ id_menu + "&sortby="+ sortby);
+	window.location.replace("/fashionshop/category/"+ id_menu + "/"+ sortby);
   }
   
 var body = $("html, body");

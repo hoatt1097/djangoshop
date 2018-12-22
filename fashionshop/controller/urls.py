@@ -21,6 +21,6 @@ urlpatterns = [
     url(r'^product/(?P<product_id>[0-9]+)/$', product.showProductDetail , name='showProductDetail'),
     url(r'login', login.index, name='index'),
     url(r'register', register.index, name='index'),
-    url(r'category', category.index, name='index'),
+    url(r'category/(?P<id>.*)/(?P<sortby>.*)$', category.index, name='index'),
     
 ]
