@@ -51,3 +51,41 @@ def showDeliveryGuide(request):
         'numberCart' : numberCart,
     }
     return HttpResponse(template.render(context, request))
+
+def showNewsFashion(request):        
+    numberCart = cart.Cart.objects.count()
+
+    query1 = 'SELECT * from news where group_id = 1 order by id desc'
+    listNews = news.News.objects.raw(query1)
+
+    template = loader.get_template('extra_template/tapchi-thoitrang.html')
+    context = {
+        'numberCart' : numberCart,
+        'listNews' : listNews,
+    }
+    return HttpResponse(template.render(context, request))
+
+def showNewsDetailFashion(request, groupid, newsid):        
+    numberCart = cart.Cart.objects.count()
+
+    query1 = '''SELECT * FROM group_news WHERE id = ''' + groupid
+    group = group_news.GroupNews.objects.raw(query1)
+    for a in group:
+        groupDetail = a
+    
+    query2 = '''SELECT * FROM news WHERE id = ''' + newsid
+    detail = news.News.objects.raw(query2)
+    for a in detail:
+        newsDetail = a
+
+    query3 = 'SELECT * FROM news '
+    newsOther = news.News.objects.raw(query3)
+
+    template = loader.get_template('extra_template/chitiet-tapchi.html')
+    context = {
+        'numberCart' : numberCart,
+        'groupDetail' : groupDetail,
+        'newsDetail' : newsDetail,
+        'newsOther' : newsOther,
+    }
+    return HttpResponse(template.render(context, request))

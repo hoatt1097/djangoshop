@@ -13,6 +13,8 @@ urlpatterns = [
     url(r'storage-guide', extra_template.showStorageGuide , name='showStorageGuide'),
     url(r'payment-guide', extra_template.showPaymentGuide , name='showPaymentGuide'),
     url(r'delivery-guide', extra_template.showDeliveryGuide , name='showDeliveryGuide'),
+    url(r'news-fashion', extra_template.showNewsFashion , name='showNewsFashion'),
+    url(r'news-detail/(?P<groupid>.*)/(?P<newsid>.*)$', extra_template.showNewsDetailFashion , name='showNewsDetailFashion'),
 
     # This is function add to cart 
     url(r'addcart', cart.addCart, name='addCart'),

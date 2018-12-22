@@ -1,0 +1,47 @@
+{% load static %}
+{% static "" as baseUrl %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+    
+    <title>Thời trang</title>
+
+    <!-- Bootstrap -->
+	<link rel="icon" href="{% static "images/icon/icon.png" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-theme.min.css" %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<style>
+		.content {
+			margin: 30px 50px;
+			font-size: 16px;
+			line-height: 25px;
+		}
+	</style>
+  </head>
+  <body>
+  	{% include "frontend/header.html" %}
+		<div class="container">
+		 <h1><b>{{groupDetail.name}}</b></h1>
+			<hr>
+		 <div id='noidung'>
+			<h4><big><b>{{newsDetail.title}}</b></big></h4>
+			<h5><i>{{newsDetail.header}}</i></h5>
+			<center><img src='{{baseUrl}}{{newsDetail.image}}' width='600'></center>
+			<p align=justify class="content">"{{newsDetail.content}}</p>
+			<h4><i>Xem thêm:</i></h4>
+			{% for a in newsOther%}
+				<a href = '/fashionshop/news-detail/{{a.group_id}}/{{a.id}}'>{{a.title}}</a><br>
+			{% endfor %}
+		 </div>
+	    </div>
+	{% include "frontend/footer.html" %}
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+  </body>
+</html>

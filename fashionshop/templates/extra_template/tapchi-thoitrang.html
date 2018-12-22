@@ -1,0 +1,81 @@
+{% load static %}
+{% static "" as baseUrl %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+    
+    <title>Thời trang</title>
+
+    <!-- Bootstrap -->
+    <link rel="icon" href="{% static "images/icon/icon.png" %}">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <style type="text/css">
+      #news-container {
+        left: 0;
+        width: 97%;
+        margin-top: 100px;
+      }
+      #newest{
+        padding-bottom: 1.5em;
+        padding-top: 1.5em;
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+        background: #EFEFEF;
+        border: 1px solid#E8E8E8;
+      }
+      #others{
+        padding-bottom: 0.75em;
+        padding-top: 0.75em;
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+        background: #EFEFEF;
+        border: 1px solid#E8E8E8;
+      }
+      img {
+        float: left;
+        margin-right: 0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    {% include "frontend/header.html" %}
+  <div class="container" style="margin-top: -80px">
+    <div id="news-container">
+      <h1><b>THỜI TRANG</b></h1>
+     <div id='noidung'> 
+            <div id="newest" class="row">
+              {% for a in listNews%}
+                {%if forloop.counter == 1%}
+                  <a href="/fashionshop/news-detail/{{a.group_id}}/{{a.id}}"><img src="{{baseUrl}}{{a.image}}" width="600" height="300"  style="float:left;"/></a>
+                  <b><big><a href = '/fashionshop/news-detail/{{a.group_id}}/{{a.id}}'>{{a.title}}</a></b></big>
+                  <i><br><br>{{a.header}}<br><br></i>
+                {% endif %}
+              {% endfor %}
+            </div>
+       </div>
+      <h2><i>Tin cũ hơn</i></h2>
+      {% for a in listNews%}
+        {%if forloop.counter != 1%}
+          <div id="others" class="row">
+            <a href="/fashionshop/news-detail/{{a.group_id}}/{{a.id}}"><img src="{{baseUrl}}{{a.image}}" width="360" height="180"  style="float:left;"/></a>
+            <b><big><a href = '/fashionshop/news-detail/{{a.group_id}}/{{a.id}}'>{{a.title}}</a></b></big>
+            <i><br><br>{{a.header}}<br><br></i>
+          </div>
+        {% endif %}
+      {% endfor %} 
+
+      </div>
+  </div>
+</div>
+  {% include "frontend/footer.html" %}
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+  </body>
+</html>
