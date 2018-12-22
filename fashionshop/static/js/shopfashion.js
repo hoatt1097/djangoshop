@@ -15,7 +15,7 @@ $(document).ready(function() {
 
   $(".colection ul li a").click(function(){
     var id_menu =  $(this).attr("itemprop");
-    $(this).attr('href', '/fashionshop/product/' + id_menu + '&sortby=default');
+    $(this).attr('href', '/fashionshop/product/category/' + id_menu + '/default');
   })
 
 });
