@@ -97,25 +97,31 @@
             <div  class="navbar-default" role="navigation">
                <ul class="nav navbar-nav">
                   <li>
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "images/icon/search.png" %}" alt="" style="width: 22px"></a>
-                 </li>
-                 <li>
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "images/icon/user.png" %}" alt="" style="width: 17px"></a>
-                      <ul class="dropdown-menu not-session">
-                         <li><a href="/fashionshop/login">Đăng nhập</a></li>
-                         <li class="divider"></li>
-                         <li><a href="/fashionshop/register">Đăng ký</a></li>
-                     </ul>
-                     <ul class="dropdown-menu have-session" style="display: none">
-                         <li><a href=""></a></li>
-                         <li class="divider"></li>
-                         <li><a href="">Đăng xuất</a></li>
-                     </ul>
-                 </li>
-                 <li class="cart">
-                      <a href="" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "images/icon/shop-cart-icon.png" %}" alt="" style="width: 22px"></a>
-                      <span class="top_cart_qty">{{numberCart}} </span>
-                 </li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "images/icon/search.png" %}" alt="" style="width: 22px"></a>
+                    <ul class="dropdown-menu " style="width: 225px;">
+                      <form action="/fashionshop/search">
+                        <input type="text" placeholder="Search.." name="search" style="margin-left:4px">
+                        <button type="submit" style="float:right, margin-right: 4px;"><i class="fa fa-search"></i></button>
+                      </form>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "images/icon/user.png" %}" alt="" style="width: 17px"></a>
+                    <ul class="dropdown-menu not-session">
+                      <li><a href="/fashionshop/login">Đăng nhập</a></li>
+                      <li class="divider"></li>
+                      <li><a href="/fashionshop/register">Đăng ký</a></li>
+                    </ul>
+                    <ul class="dropdown-menu have-session" style="display: none">
+                      <li><a href=""></a></li>
+                      <li class="divider"></li>
+                      <li><a href="">Đăng xuất</a></li>
+                    </ul>
+                  </li>
+                  <li class="cart">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static "images/icon/shop-cart-icon.png" %}" alt="" style="width: 22px"></a>
+                    <span class="top_cart_qty">{{numberCart}} </span>
+                  </li>
               </ul>
             </div>
             

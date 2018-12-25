@@ -72,10 +72,21 @@ def index(request, id, sortby):
     return HttpResponse(template.render(context, request))
 
 
-def textSearch(request, text):
-    listProduct = product.Product.objects.filter(name = text)
+def textSearch(request):
+    text1 = request.GET.get('search')
+    numberCart = cart.Cart.objects.count()
+
+    cursor = connection.cursor()
+    cursor.execute('''SELECT DISTINCT brand FROM product''')
+    listBrand = cursor.fetchall()
+
+    query = '''SELECT * FROM product WHERE MATCH (name) AGAINST (''' + " '" + text1 + "'"+ ''' IN NATURAL LANGUAGE MODE)'''
+    listProduct = product.Product.objects.raw(query)
     context = {
-        'listProduct': listProduct
+        'numberCart':numberCart,
+        'listBrand' : listBrand,
+        'option': "Mặc định", 
+        'listProduct': listProduct,
     }
     template = loader.get_template('frontend/category.html')
     return HttpResponse(template.render(context, request))
