@@ -7,10 +7,31 @@ from ..models import *
 
 # Create your views here.
 def addCart(request):
-    username = request.GET.get('id_product')
+    count = cart.Cart.objects.count()
+    id_product = request.GET.get('id_product')
+    color_choose = request.GET.get('color_choose')
+    size_choose = request.GET.get('size_choose')
+    amount = request.GET.get('amount')
+    price = request.GET.get('price')
+    sum_price = int(amount) * int(price)
+    try: 
+        newCart = cart.Cart.objects.get(product_id = id_product, color_choose = color_choose, size_choose = size_choose)
+        a = newCart.amount
+        b = newCart.sum_price
+        newCart.amount = int(a) + int(amount)
+        newCart.sum_price = int(b) + int(sum_price)
+        newCart.save()
+    except Cart.DoesNotExist:   
+        data = cart.Cart.objects.create(product_id = id_product,\
+                                    color_choose = color_choose,\
+                                    size_choose = size_choose,\
+                                    amount = amount,\
+                                    sum_price = sum_price)
+    except Employee.MultipleObjectsReturned:
+        data = ""
+
     response = HttpResponse()
-    response.write("<h1>Welcome</h1>")
-    print(username)
+    response.write("Ok")
     return response
     
 def showCart(request):
@@ -35,3 +56,11 @@ def showCart(request):
         'sumPrice': sumPrice,
     }
     return HttpResponse(template.render(context, request))
+
+def deleteCart(request):
+    id = request.GET.get('id')
+    newCart = cart.Cart.objects.get(id = id)
+    newCart.delete()
+    response = HttpResponse()
+    response.write("Bạn đã xóa thành công")
+    return response

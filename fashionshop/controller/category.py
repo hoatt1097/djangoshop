@@ -67,7 +67,15 @@ def index(request, id, sortby):
         'id': id,
         'option': option, 
         'sortby': sortby,
-        'query': query,
         'listProduct': listProduct
     }
+    return HttpResponse(template.render(context, request))
+
+
+def textSearch(request, text):
+    listProduct = product.Product.objects.filter(name = text)
+    context = {
+        'listProduct': listProduct
+    }
+    template = loader.get_template('frontend/category.html')
     return HttpResponse(template.render(context, request))

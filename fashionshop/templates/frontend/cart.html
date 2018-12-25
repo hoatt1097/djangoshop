@@ -116,7 +116,7 @@
 
                 <tr class="cart_item">
                   <td class="cart-product-remove">
-                    <a itemprop="{{a.0}}" class="remove" title="Bỏ sản phẩm này"><i class="fa fa-trash"></i></a>
+                    <a itemprop="{{a.14}}" class="remove" title="Bỏ sản phẩm này"><i class="fa fa-trash"></i></a>
                   </td>
 
                   <td class="cart-product-thumbnail">
@@ -189,17 +189,17 @@
     <script type="text/javascript">
       $(document).ready(function() {
         $(".remove").click(function(){
-          var id_remove = $(".remove").attr("itemprop");
+          var id = $(this).attr("itemprop");
           $.ajax({
-            url : "remove-cart.php",
-            type : 'post',
+            url : "/fashionshop/delete",
+            type : 'get',
             dataType : 'text',
             data : {
-                "id_remove"    : id_remove
+                "id"    : id
             },
             success : function(result) {
               alert(result);
-              window.location.replace("cart.php");
+              window.location.replace("/fashionshop/cart");
             }
           });
         });

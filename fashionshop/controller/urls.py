@@ -18,8 +18,10 @@ urlpatterns = [
 
     # This is function add to cart 
     url(r'addcart', cart.addCart, name='addCart'),
+    url(r'delete', cart.deleteCart, name='deleteCart'),
     url(r'cart', cart.showCart, name='showCart'),
 
+    url(r'^search/(?P<text>.*)/$', category.textSearch, name='textSearch'),
     url(r'^product/(?P<product_id>[0-9]+)/$', product.showProductDetail , name='showProductDetail'),
     url(r'login', login.index, name='index'),
     url(r'register', register.index, name='index'),

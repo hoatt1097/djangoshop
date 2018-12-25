@@ -5,7 +5,7 @@ Link document:
 - https://docs.djangoproject.com/en/1.5/ - Django Official Documentation.
 - http://www.djangobook.com/en/2.0/index.html - The Django Book.
 - http://mherman.org/blog/2012/12/30/django-basics/ - Django Basic.
-
+- https://www.webforefront.com/django/singlemodelrecords.html
 Book:
 - Pro Django - Alchin, Marty (16 December 2008).
 - The Definitive Guide to Django: Web Development Done Right - Holovaty, Adrian; 
