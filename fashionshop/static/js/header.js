@@ -7,7 +7,7 @@ $(document).ready(function() {
   })
 
   $(".cart").click(function(){
-    window.location.replace("cart.php");
+    window.location.replace("/fashionshop/cart");
   })
 
   $("button[data-role='addtocart']").click(function(){

@@ -10,8 +10,9 @@ def addCart(request):
     username = request.GET.get('id_product')
     response = HttpResponse()
     response.write("<h1>Welcome</h1>")
-    response.write(username)
+    print(username)
     return response
+    
 def showCart(request):
     numberCart = cart.Cart.objects.count()
     listAdmin = product.Product.objects.all()
