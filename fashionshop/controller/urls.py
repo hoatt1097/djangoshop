@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'register', register.index, name='index'),
     url(r'category/(?P<id>.*)/(?P<sortby>.*)$', category.index, name='index'),
     url(r'pay', pay.index, name='index'),
+    url(r'sendmail', pay.sendMail, name='sendMail'),
     
 ]

@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core.mail import send_mail
+from django.conf import settings
 from django.db import connection
 from django.template import loader
 from ..models import *
@@ -27,3 +29,28 @@ def index(request):
         'sumPrice': sumPrice,
     }
     return HttpResponse(template.render(context, request))
+
+def sendMail(request):
+    email = request.GET.get('email')
+    name = request.GET.get('name')
+    phone = request.GET.get('phone')
+    address = request.GET.get('address')
+    sum_price = request.GET.get('sum_price')
+
+    subject = 'Thank you for registering to our site'
+    message = 'Bạn đã đặt mua hàng tại ShopFashion \n' + \
+            'Với thông tin: \n' + \
+            'Tên: ' + name + '\n' +\
+            'Số ĐT: ' + phone + '\n' +\
+            'Email: ' + email + '\n' +\
+            'Address: ' + address + '\n' +\
+            'Tổng tiền: ' + sum_price + ' VNĐ \n' +\
+            'Cửa hàng sẽ gọi điện thoại xác nhận sau 15 phút. Xin cảm ơn!'
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [email,]
+    send_mail( subject, message, email_from, recipient_list )
+
+    cart.Cart.objects.all().delete()
+    response = HttpResponse()
+    response.write("Ok")
+    return response

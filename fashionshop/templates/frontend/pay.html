@@ -212,7 +212,7 @@
 </head>
 <body>
   <div class="container">
-    <form method="post" action="" class="content">
+    <form action="" class="content">
       <div class="sidebar ">
         <div class="sidebar_header">
           <h2>
@@ -315,7 +315,7 @@
                     <i class="fa fa-angle-left fa-lg" aria-hidden="true"></i>
                     <span>Quay về giỏ hàng</span>
                 </a>
-                <input type="submit" class="btn btn-primary btn-checkout" value="ĐẶT HÀNG" button"="">
+                 <button class="btn btn-primary btn-checkout" type="button">ĐẶT HÀNG</button>
             </div>
           </div>
         </div>
@@ -479,19 +479,20 @@
           {
             alert("Caution! Please fill out infomation.");
           }
-          else{
+          else {
             $.ajax({
-            url : "add-hoadon.php",
-            type : 'post',
+            url : "/fashionshop/sendmail",
+            type : 'get',
             dataType : 'text',
             data : {
+                "email" : email,
                 "name"    : name,
                 "phone"    : phone,
                 "address"    : address,
                 "sum_price"    : sum_price
             },
             success : function() {
-              alert("Xin chúc mừng " + name + " đã đặt hàng tại shop thành công.\nThông tin người đặt hàng:\nEmail: "+email+"\nTên: "+name+"\nPhone: "+phone+"\nAddress: "+address+"\nTổng tiền: "+sum_price );
+              alert("Xin chúc mừng " + name + " đã đặt hàng tại shop thành công.\nThông tin người đặt hàng:\nEmail: "+email+"\nTên: "+name+"\nPhone: "+phone+"\nAddress: "+address+"\nTổng tiền: "+sum_price + "\n Thông báo sẽ được gởi về email!");
               alert("Quay về trang chủ");
               window.location.replace("/fashionshop");
             }
