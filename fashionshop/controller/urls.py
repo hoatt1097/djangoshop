@@ -1,6 +1,6 @@
 from django.conf.urls import url 
  
-from . import views, home, extra_template, product, cart, login, register, category, pay
+from . import views, home, extra_template, product, cart, login, register, category, pay, admin
  
 urlpatterns = [ 
     url(r'^$', home.showProduct , name='showProduct'),
@@ -28,5 +28,7 @@ urlpatterns = [
     url(r'category/(?P<id>.*)/(?P<sortby>.*)$', category.index, name='index'),
     url(r'pay', pay.index, name='index'),
     url(r'sendmail', pay.sendMail, name='sendMail'),
-    
+
+    # This is ulrs of admin
+    url(r'manage/admin', admin.showProduct, name='showProduct'),
 ]
